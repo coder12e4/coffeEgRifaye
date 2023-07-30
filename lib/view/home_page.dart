@@ -6,35 +6,13 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return const SafeArea(
         child: Scaffold(
       body: SingleChildScrollView(
         child: Column(
-          children: <Widget>[
-            Container(
-              height: 300,
-              color: purple,
-            ),
-          
-            Container(
-              height: 3000,
-              child: ListView.builder(
-                itemCount: 109,
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                        height: 30,
-                        color: yellow,
-                      ),
-                    ],
-                  );
-                },
-              ),
-            ),
+          children: [
+
+            
           ],
         ),
       ),

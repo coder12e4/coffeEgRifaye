@@ -1,8 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:coffie_delivary/controller/cataloge_controller.dart';
 import 'package:coffie_delivary/core/colors.dart';
-
-import 'package:flutter/cupertino.dart';
+import 'package:coffie_delivary/view/product_page.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'package:flutter/material.dart';
 
@@ -28,26 +29,32 @@ class _catalogePageState extends State<catalogePage> {
       child: Scaffold(
         body: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) => [
-            const SliverAppBar(
+            SliverAppBar(
               automaticallyImplyLeading: false,
               backgroundColor: basegray,
-              title: Row(
-                children: [
-                  Icon(Icons.location_on, color: purple),
-                  Text("Porto Alegre, RS",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                      )),
-                ],
+              title: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(Icons.location_on, color: purple),
+                        Text("Porto Alegre, RS",
+                            style: GoogleFonts.roboto(
+                              color: Colors.white,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                            )),
+                      ],
+                    ),
+                    Icon(
+                      Icons.shopping_cart,
+                      color: yellowDark,
+                    )
+                  ],
+                ),
               ),
-              actions: [
-                Icon(
-                  Icons.shopping_cart,
-                  color: yellowDark,
-                )
-              ],
             )
           ],
           body: SingleChildScrollView(
@@ -55,7 +62,7 @@ class _catalogePageState extends State<catalogePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  height: 350,
+                  height: 400.h,
                   width: respowidth,
                   child: Stack(
                     children: [
@@ -63,48 +70,48 @@ class _catalogePageState extends State<catalogePage> {
                         top: 0,
                         child: Container(
                           width: respowidth,
-                          height: 345,
+                          height: 305.h,
                           color: basegray,
                           child: Stack(children: [
                             Positioned(
-                                top: 130,
-                                right: 40,
+                                top: 100.h,
+                                right: 40.w,
                                 child: Image.asset('assets/images/seed.png')),
-                            const Positioned(
+                            Positioned(
                                 top: 0,
-                                left: 10,
+                                left: 15.w,
                                 child: Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 25),
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 25.w),
                                   child: Text(
                                       'Encontre o café perfeito para\nqualquer hora do dia',
-                                      style: TextStyle(
+                                      style: GoogleFonts.baloo2(
                                         color: Colors.white,
                                         fontSize: 20,
                                         fontWeight: FontWeight.w700,
                                       )),
                                 )),
                             Positioned(
-                              top: 80,
-                              left: 10,
+                              top: 60.h,
+                              left: 15.w,
                               child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 25),
+                                padding: EdgeInsets.symmetric(horizontal: 25.w),
                                 child: Container(
-                                  height: 50,
-                                  width: 340,
+                                  height: 40.h,
+                                  width: 285.w,
                                   color: baseGray200,
                                   child: SizedBox(
                                     width: double
                                         .infinity, // Add a finite width to the TextFormField
                                     child: TextFormField(
-                                      decoration: const InputDecoration(
+                                      decoration: InputDecoration(
                                           prefixIcon: Icon(
                                             Icons.search,
                                             color: Colors.white54,
                                           ),
                                           hintText: 'Pesquisar',
-                                          hintStyle:
-                                              TextStyle(color: Colors.white54),
+                                          hintStyle: GoogleFonts.baloo2(
+                                              color: Colors.white54),
                                           border: OutlineInputBorder(
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(3)))),
@@ -116,24 +123,27 @@ class _catalogePageState extends State<catalogePage> {
                           ]),
                         ),
                       ),
-                      // Carousilwidget(respowidth: respowidth),
+                      Carousilwidget(respowidth: respowidth),
                     ],
                   ),
                 ),
                 Container(
-                  height: 900,
+                  height: 700.h,
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.only(
-                          left: 35,
+                          left: 35.w,
                         ),
                         child: Text(
                           'Nossos cafes',
+                          style:
+                              GoogleFonts.baloo2(fontWeight: FontWeight.bold),
                         ),
                       ),
-                      const SizedBox(
-                        height: 10,
+                      SizedBox(
+                        height: 8.h,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -221,10 +231,10 @@ class Carousilwidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      left: 10,
-      top: 180,
+      left: 15.w,
+      top: 130.h,
       child: Container(
-        height: 300,
+        height: 300.h,
         width: respowidth,
         child: CarouselSlider(
           options: CarouselOptions(
@@ -241,95 +251,103 @@ class Carousilwidget extends StatelessWidget {
           items: [1, 2, 3, 4, 5].map((i) {
             return Builder(
               builder: (BuildContext context) {
-                return Stack(
-                  children: [
-                    Positioned(
-                      top: 30,
-                      child: Container(
-                          margin: const EdgeInsets.only(left: 25),
-                          width: 200,
-                          height: 262,
+                return InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => ProductPage(),
+                    ));
+                  },
+                  child: Stack(
+                    children: [
+                      Positioned(
+                        top: 28.h,
+                        child: Container(
+                            margin: const EdgeInsets.only(left: 25),
+                            width: 180.w,
+                            height: 202.h,
+                            decoration: const BoxDecoration(
+                              color: Color.fromARGB(255, 214, 212, 212),
+                              borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(40),
+                                  topLeft: Radius.circular(15),
+                                  bottomLeft: Radius.circular(40),
+                                  bottomRight: Radius.circular(15)),
+                            ),
+                            child: const Column(
+                              children: [],
+                            )),
+                      ),
+                      Positioned(
+                          top: 0,
+                          left: 65.w,
+                          child: Image.asset('assets/images/Image (1).png')),
+                      Positioned(
+                        top: 85.h,
+                        left: 90.w,
+                        child: Container(
+                          width: 50.w,
                           decoration: const BoxDecoration(
-                            color: Color.fromARGB(255, 214, 212, 212),
-                            borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(40),
-                                topLeft: Radius.circular(15),
-                                bottomLeft: Radius.circular(40),
-                                bottomRight: Radius.circular(15)),
-                          ),
-                          child: const Column(
-                            children: [],
-                          )),
-                    ),
-                    Positioned(
-                        top: 0,
-                        left: 75,
-                        child: Image.asset('assets/images/Image (1).png')),
-                    Positioned(
-                      top: 110,
-                      left: 100,
-                      child: Container(
-                        width: 50,
-                        decoration: const BoxDecoration(
-                            color: purpleWhite,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(30))),
-                        child: const Center(
-                          child: Text(
-                            'DOCE',
-                            style: TextStyle(
-                                color: purpleDrk, fontWeight: FontWeight.w600),
+                              color: purpleWhite,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(30))),
+                          child: Center(
+                            child: Text(
+                              'DOCE',
+                              style: GoogleFonts.baloo2(
+                                  color: purpleDrk,
+                                  fontWeight: FontWeight.w600),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    const Positioned(
-                        top: 140,
-                        left: 78,
-                        child: Text(
-                          'Mocaccino',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600, fontSize: 20),
-                        )),
-                    Positioned(
-                        top: 180,
-                        left: 45,
-                        child: Container(
-                          width: 160,
-                          child: const Center(
-                            child: Text.rich(
-                              textAlign: TextAlign.center,
-                              TextSpan(
-                                text:
-                                    'Cafe expresso com o dobro de leite e espuma cremosa',
-                              ),
-                              style: TextStyle(
-                                  color: Colors.black54,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 11),
-                            ),
-                          ),
-                        )),
-                    const Positioned(
-                        top: 230,
-                        left: 100,
-                        child: Text.rich(
-                          TextSpan(
-                              style: TextStyle(
-                                  color: yellow,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 13),
-                              text: 'RS ',
-                              children: [
+                      Positioned(
+                          top: 110.h,
+                          left: 67.w,
+                          child: Text(
+                            'Mocaccino',
+                            style: GoogleFonts.baloo2(
+                                fontWeight: FontWeight.w700, fontSize: 20),
+                          )),
+                      Positioned(
+                          top: 140.h,
+                          left: 35.w,
+                          child: Container(
+                            width: 160.w,
+                            child: Center(
+                              child: Text.rich(
+                                textAlign: TextAlign.center,
                                 TextSpan(
-                                    text: '9,90',
-                                    style: TextStyle(
-                                        color: yellowDark,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold))
-                              ]),
-                        ))
-                  ],
+                                  text:
+                                      'Cafe expresso com o dobro de leite e espuma cremosa',
+                                ),
+                                style: GoogleFonts.baloo2(
+                                    color: Colors.black54,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 12),
+                              ),
+                            ),
+                          )),
+                      Positioned(
+                          top: 180.h,
+                          left: 70.h,
+                          child: Text.rich(
+                            TextSpan(
+                                style: TextStyle(
+                                    color: yellow,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 13),
+                                text: 'RS ',
+                                children: [
+                                  TextSpan(
+                                      text: '9,90',
+                                      style: TextStyle(
+                                          color: yellowDark,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold))
+                                ]),
+                          ))
+                    ],
+                  ),
                 );
               },
             );
@@ -355,22 +373,33 @@ class Catogary1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Padding(
+          padding: EdgeInsets.only(left: 35.w),
+          child: Text(selectedCategory,
+              style: GoogleFonts.baloo2(fontWeight: FontWeight.w500)),
+        ),
         Container(
-          height: 700,
+          height: 600.h,
           child: ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             controller: _scrollController,
-            itemCount: 3,
+            itemCount: 6,
             itemBuilder: (context, index) {
               if (selectedCategory == 'TRADICIONAIS') {
-                return const coffiecard();
-              }
-
-              if (category[index] == selectedCategory) {
-                return Container(
-                  height: 60,
-                  color: purple,
+                return Column(
+                  children: [
+                    coffiecard1(selectedCategory: selectedCategory),
+                  ],
+                );
+              } else if (selectedCategory == 'DOCES') {
+                return coffiecard2(
+                  selectedCategory: selectedCategory,
+                );
+              } else if (selectedCategory == 'ESPECIAIS') {
+                return coffiecard3(
+                  selectedCategory: selectedCategory,
                 );
               } else {
                 return SizedBox.shrink();
@@ -383,97 +412,11 @@ class Catogary1 extends StatelessWidget {
   }
 }
 
-class Catogary2 extends StatelessWidget {
-  const Catogary2({
-    super.key,
-    required ScrollController scrollController,
-    required this.category,
-    required this.selectedCategory,
-  }) : _scrollController = scrollController;
-
-  final ScrollController _scrollController;
-  final List<String> category;
+class coffiecard1 extends StatelessWidget {
   final String selectedCategory;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text('TRADICIONAIS'),
-        Container(
-          height: 700,
-          child: ListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            controller: _scrollController,
-            itemCount: 3,
-            itemBuilder: (context, index) {
-              if (selectedCategory == 'TRADICIONAIS') {
-                return const coffiecard();
-              }
-
-              if (category[index] == selectedCategory) {
-                return Container(
-                  height: 60,
-                  color: purple,
-                );
-              } else {
-                return SizedBox.shrink();
-              }
-            },
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class Catogary3 extends StatelessWidget {
-  const Catogary3({
+  const coffiecard1({
     super.key,
-    required ScrollController scrollController,
-    required this.category,
     required this.selectedCategory,
-  }) : _scrollController = scrollController;
-
-  final ScrollController _scrollController;
-  final List<String> category;
-  final String selectedCategory;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text('TRADICIONAIS'),
-        Container(
-          height: 700,
-          child: ListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            controller: _scrollController,
-            itemCount: 3,
-            itemBuilder: (context, index) {
-              if (selectedCategory == 'TRADICIONAIS') {
-                return const coffiecard();
-              }
-
-              if (category[index] == selectedCategory) {
-                return Container(
-                  height: 60,
-                  color: purple,
-                );
-              } else {
-                return SizedBox.shrink();
-              }
-            },
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class coffiecard extends StatelessWidget {
-  const coffiecard({
-    super.key,
   });
 
   @override
@@ -485,16 +428,16 @@ class coffiecard extends StatelessWidget {
         //   child: Text(''),
         // ),
         Padding(
-          padding: const EdgeInsets.only(left: 22),
+          padding: EdgeInsets.only(left: 35.w),
           child: Container(
-            height: 140,
+            height: 120.h,
             child: Stack(
               children: [
                 Positioned(
-                  top: 15,
+                  top: 10.h,
                   child: Container(
-                    height: 120,
-                    width: 311,
+                    height: 100.h,
+                    width: 300.w,
                     decoration: const BoxDecoration(
                         color: baseGrat500,
                         borderRadius: BorderRadius.only(
@@ -505,10 +448,186 @@ class coffiecard extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  top: 30,
-                  left: 120,
+                  top: 20.h,
+                  left: 120.w,
                   child: Container(
-                    width: 180,
+                    width: 180.w,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Expresso Tradicional',
+                          style: GoogleFonts.baloo2(
+                              fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                            'O tradicional café feito com água quente e grãos moídos',
+                            style: GoogleFonts.baloo2(
+                                fontSize: 13, color: Colors.black38)),
+                        Text.rich(
+                          TextSpan(
+                              style: TextStyle(
+                                  color: yellow,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 13),
+                              text: 'RS ',
+                              children: [
+                                TextSpan(
+                                    text: '9,90',
+                                    style: TextStyle(
+                                        color: yellowDark,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold))
+                              ]),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                Positioned(
+                    top: -4.h,
+                    left: 10.w,
+                    child: Image.asset('assets/images/Image (2).png')),
+              ],
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 10.h,
+        ),
+      ],
+    );
+  }
+}
+
+class coffiecard2 extends StatelessWidget {
+  final String selectedCategory;
+  const coffiecard2({
+    super.key,
+    required this.selectedCategory,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        // Padding(
+        //   padding: const EdgeInsets.all(10.0),
+        //   child: Text(''),
+        // ),
+        Padding(
+          padding: EdgeInsets.only(left: 35.w),
+          child: Container(
+            height: 120.h,
+            child: Stack(
+              children: [
+                Positioned(
+                  top: 10.h,
+                  child: Container(
+                    height: 100.h,
+                    width: 300.w,
+                    decoration: const BoxDecoration(
+                        color: baseGrat500,
+                        borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(36),
+                            bottomRight: Radius.circular(6),
+                            topLeft: Radius.circular(6),
+                            topRight: Radius.circular(36))),
+                  ),
+                ),
+                Positioned(
+                  top: 20.h,
+                  left: 120.w,
+                  child: Container(
+                    width: 180.w,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Expresso Tradicional',
+                          style: GoogleFonts.baloo2(
+                              fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                            'O tradicional café feito com água quente e grãos moídos',
+                            style:
+                                TextStyle(fontSize: 13, color: Colors.black38)),
+                        Text.rich(
+                          TextSpan(
+                              style: TextStyle(
+                                  color: yellow,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 13),
+                              text: 'RS ',
+                              children: [
+                                TextSpan(
+                                    text: '9,90',
+                                    style: TextStyle(
+                                        color: yellowDark,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold))
+                              ]),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                Positioned(
+                    top: -4.h,
+                    left: 10.w,
+                    child: Image.asset('assets/images/Image (2).png')),
+              ],
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 10.h,
+        ),
+      ],
+    );
+  }
+}
+
+class coffiecard3 extends StatelessWidget {
+  final String selectedCategory;
+  const coffiecard3({
+    super.key,
+    required this.selectedCategory,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        // Padding(
+        //   padding: const EdgeInsets.all(10.0),
+        //   child: Text(''),
+        // ),
+        Padding(
+          padding: EdgeInsets.only(left: 35.w),
+          child: Container(
+            height: 120.h,
+            child: Stack(
+              children: [
+                Positioned(
+                  top: 10.h,
+                  child: Container(
+                    height: 100.h,
+                    width: 300.w,
+                    decoration: const BoxDecoration(
+                        color: baseGrat500,
+                        borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(36),
+                            bottomRight: Radius.circular(6),
+                            topLeft: Radius.circular(6),
+                            topRight: Radius.circular(36))),
+                  ),
+                ),
+                Positioned(
+                  top: 20.h,
+                  left: 120.w,
+                  child: Container(
+                    width: 180.w,
                     child: const Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -542,15 +661,15 @@ class coffiecard extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                    top: -4,
-                    left: 10,
+                    top: -4.h,
+                    left: 10.w,
                     child: Image.asset('assets/images/Image (2).png')),
               ],
             ),
           ),
         ),
-        const SizedBox(
-          height: 10,
+        SizedBox(
+          height: 10.h,
         ),
       ],
     );
