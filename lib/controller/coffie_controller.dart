@@ -1,5 +1,6 @@
 import 'package:coffie_delivary/view/catalogo.dart';
 import 'package:coffie_delivary/view/home_page.dart';
+import 'package:coffie_delivary/view/register.dart';
 
 import 'package:get/get.dart';
 
@@ -13,6 +14,6 @@ class CoffieController extends GetxController {
 
   Future splashwite() async {
     Future.delayed(const Duration(seconds: 3))
-        .then((value) => Get.to(catalogePage()));
+        .then((value) => Get.to(RegisterPage()));
   }
 }

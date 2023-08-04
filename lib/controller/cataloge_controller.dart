@@ -1,3 +1,4 @@
+import 'package:coffie_delivary/service/allproducts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -10,6 +11,7 @@ class CatalogController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     scrollController = ScrollController();
+    Fetchdata().fetchdata();
     super.onInit();
   }
 

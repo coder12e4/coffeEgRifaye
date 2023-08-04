@@ -1,14 +1,19 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:coffie_delivary/controller/cataloge_controller.dart';
 import 'package:coffie_delivary/core/colors.dart';
+import 'package:coffie_delivary/service/allproducts.dart';
+import 'package:coffie_delivary/view/fetchdata.dart';
 import 'package:coffie_delivary/view/product_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:flutter/material.dart';
+// import 'package:jwt_decoder/jwt_decoder.dart';
 
 class catalogePage extends StatefulWidget {
-  const catalogePage({super.key});
+  catalogePage({required this.token, super.key});
+
+  var token;
 
   @override
   State<catalogePage> createState() => _catalogePageState();
@@ -18,6 +23,16 @@ class _catalogePageState extends State<catalogePage> {
   ScrollController _scrollController = ScrollController();
   final List<String> category = ['TRADICIONAIS', 'DOCES', 'ESPECIAIS'];
   String selectedCategory = 'TRADICIONAIS';
+  late String? email;
+  @override
+  void initState() {
+    // TODO: implement initState
+    Fetchdata().fetchdata();
+    // Map<String, dynamic> jwtDecoderToken = JwtDecoder.decode(widget.token);
+    email = widget.token['data']['email'];
+    print(widget.token.toString());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +74,7 @@ class _catalogePageState extends State<catalogePage> {
           ],
           body: SingleChildScrollView(
             child: Column(
+              mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
@@ -109,7 +125,7 @@ class _catalogePageState extends State<catalogePage> {
                                             Icons.search,
                                             color: Colors.white54,
                                           ),
-                                          hintText: 'Pesquisar',
+                                          hintText: email,
                                           hintStyle: GoogleFonts.baloo2(
                                               color: Colors.white54),
                                           border: OutlineInputBorder(
@@ -128,8 +144,9 @@ class _catalogePageState extends State<catalogePage> {
                   ),
                 ),
                 Container(
-                  height: 700.h,
+                  // height: respohight,
                   child: Column(
+                    mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
@@ -254,7 +271,7 @@ class Carousilwidget extends StatelessWidget {
                 return InkWell(
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ProductPage(),
+                      builder: (context) => dataload(),
                     ));
                   },
                   child: Stack(
@@ -380,32 +397,30 @@ class Catogary1 extends StatelessWidget {
           child: Text(selectedCategory,
               style: GoogleFonts.baloo2(fontWeight: FontWeight.w500)),
         ),
-        Container(
-          height: 600.h,
-          child: ListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            controller: _scrollController,
-            itemCount: 6,
-            itemBuilder: (context, index) {
-              if (selectedCategory == 'TRADICIONAIS') {
-                return Column(
-                  children: [
-                    coffiecard1(selectedCategory: selectedCategory),
-                  ],
-                );
-              } else if (selectedCategory == 'DOCES') {
-                return coffiecard2(
-                  selectedCategory: selectedCategory,
-                );
-              } else if (selectedCategory == 'ESPECIAIS') {
-                return coffiecard3(
-                  selectedCategory: selectedCategory,
-                );
-              } else {
-                return SizedBox.shrink();
-              }
-            },
-          ),
+        ListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          controller: _scrollController,
+          itemCount: 3,
+          itemBuilder: (context, index) {
+            if (selectedCategory == 'TRADICIONAIS') {
+              return Column(
+                children: [
+                  coffiecard1(selectedCategory: selectedCategory),
+                ],
+              );
+            } else if (selectedCategory == 'DOCES') {
+              return coffiecard2(
+                selectedCategory: selectedCategory,
+              );
+            } else if (selectedCategory == 'ESPECIAIS') {
+              return coffiecard3(
+                selectedCategory: selectedCategory,
+              );
+            } else {
+              return SizedBox.shrink();
+            }
+          },
         ),
       ],
     );
