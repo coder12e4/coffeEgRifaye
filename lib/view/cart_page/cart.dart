@@ -1,5 +1,5 @@
 import 'package:coffie_delivary/core/colors.dart';
-import 'package:coffie_delivary/view/animation_cart.dart';
+import 'package:coffie_delivary/view/cart_page/animation_cart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

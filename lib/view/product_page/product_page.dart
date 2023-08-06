@@ -1,6 +1,6 @@
 import 'package:coffie_delivary/controller/product_controller.dart';
 import 'package:coffie_delivary/core/colors.dart';
-import 'package:coffie_delivary/view/cart.dart';
+import 'package:coffie_delivary/view/cart_page/cart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

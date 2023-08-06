@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:coffie_delivary/core/colors.dart';
 import 'package:coffie_delivary/core/url.dart';
 import 'package:coffie_delivary/service/login.dart';
-import 'package:coffie_delivary/view/catalogo.dart';
-import 'package:coffie_delivary/view/register.dart';
+import 'package:coffie_delivary/view/homepage/catalogo.dart';
+import 'package:coffie_delivary/view/auth/register.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -167,7 +167,7 @@ class _LoginPageState extends State<LoginPage> {
           prefs.setString('token', myToken);
         });
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => catalogePage(token: decodedResponse),
+          builder: (context) => catalogePage(token: myToken),
         ));
 
         // Add further logic to handle the response data as needed

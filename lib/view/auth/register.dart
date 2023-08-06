@@ -1,6 +1,6 @@
 import 'package:coffie_delivary/core/colors.dart';
 import 'package:coffie_delivary/service/register_service.dart';
-import 'package:coffie_delivary/view/login.dart';
+import 'package:coffie_delivary/view/auth/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
